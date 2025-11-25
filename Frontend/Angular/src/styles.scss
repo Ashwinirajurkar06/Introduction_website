@@ -1,1 +1,115 @@
 /* You can add global styles to this file, and also import other style files */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+
+// Base tokens
+$primary: #3f51b5;
+// $primary: #8c68cd;
+$secondary: #43475d;
+
+@import "bootstrap/scss/bootstrap";
+
+body {
+	font-family: "Inter", sans-serif;
+	font-size: 16px;
+	font-weight: normal;
+}
+
+
+
+:root,
+[data-bs-theme=light] {
+	body {
+		background-color: light-dark(color-mix(in srgb, white 90%, var(--bs-primary)), color-mix(in srgb, black 90%, var(--bs-primary)));
+	}
+
+	.centerContainer {
+		display: grid;
+		justify-content: center;
+		align-content: center;
+		height: 100dvh;
+	}
+
+	.formContainer {
+		// background-color: #ffffff;
+		border-radius: var(--bs-border-radius-xl) !important;
+		padding: 3rem !important;
+		margin: 1rem !important;
+		// box-shadow: var(--bs-box-shadow) !important;
+		max-width: 450px;
+		width: 100%;
+		display: block;
+		box-shadow: -0.75rem -0.75rem 1.5rem 0 rgb(255, 255, 255), 0.75rem 0.75rem 1.5rem 0 rgba(var(--bs-primary-rgb), 0.3);
+	}
+
+
+	.form-floating>.form-control:focus~label::after,
+	.form-floating>.form-control:not(:placeholder-shown)~label::after,
+	.form-floating>.form-control-plaintext~label::after,
+	.form-floating>.form-select~label::after {
+		background-color: transparent;
+	}
+
+	.form-floating>.form-select~label {
+		transform: none;
+	}
+
+	.required {
+		color: red;
+	}
+
+	.invalid-feedback {
+		display: initial;
+	}
+
+	.input-group {
+		.form-control {
+
+			&:hover,
+			&:focus {
+				outline: none;
+				box-shadow: none;
+				border-color: var(--bs-border-color);
+			}
+		}
+
+		&.is-invalid {
+
+			.form-control,
+			.input-group-text {
+				border-color: var(--bs-form-invalid-border-color) !important;
+			}
+
+			.form-label {
+				color: var(--bs-form-invalid-border-color) !important;
+			}
+
+			.input-group-text {
+				background-color: var(--bs-form-invalid-border-color);
+			}
+		}
+
+
+	}
+
+	&.ng-valid {
+
+		~.form-label {
+			color: var(--bs-link-color) !important;
+		}
+	}
+
+}
+
+
+[data-bs-theme=dark] {
+	--main-body-color: #050a12;
+
+	body {
+		background-color: var(--main-body-color);
+	}
+
+	.formContainer {
+		box-shadow: -0.75rem -0.75rem 1.5rem 0 rgba(109, 109, 109, 0.35), 0.75rem 0.75rem 1.5rem 0 rgb(0, 0, 0);
+	}
+}
