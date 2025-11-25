@@ -66,6 +66,15 @@ body {
 		color: red;
 	}
 
+	.mode-btn {
+		width: 1.875rem;
+		height: 1.875rem;
+		border-radius: 100% !important;
+		display: flex !important;
+		justify-content: center;
+		align-items: center;
+	}
+
 	.invalid-feedback {
 		display: initial;
 	}

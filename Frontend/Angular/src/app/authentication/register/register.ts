@@ -7,10 +7,11 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserRegister } from '../../utility/interfaces/general';
 import { ToastrService } from 'ngx-toastr';
+import { Header } from "../../container/header/header";
 
 @Component({
 	selector: 'app-register',
-	imports: [RouterLink, CommonModule, ReactiveFormsModule],
+	imports: [RouterLink, CommonModule, ReactiveFormsModule, Header],
 	templateUrl: './register.html',
 	styleUrl: './register.scss',
 })

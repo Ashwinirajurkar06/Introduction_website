@@ -6,10 +6,11 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { Header } from '../../container/header/header';
 
 @Component({
 	selector: 'app-login',
-	imports: [RouterLink, CommonModule, ReactiveFormsModule],
+	imports: [RouterLink, CommonModule, ReactiveFormsModule, Header],
 	templateUrl: './login.html',
 	styleUrl: './login.scss',
 })

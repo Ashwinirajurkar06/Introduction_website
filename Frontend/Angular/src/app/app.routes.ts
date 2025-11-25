@@ -8,6 +8,8 @@ export const routes: Routes = [
 	{
 		path: "",
 		canActivate: [AuthGuardService],
+		data: { animation: 'Shell' },
+		loadComponent: () => import('./container/default-layout/main-container').then(c => c.MainContainer),
 		children: [
 			{
 				path: "home", loadComponent: () => import('./views/home/home').then(c => c.Home), data: { title: "Home Page", animation: 'HomePage' }

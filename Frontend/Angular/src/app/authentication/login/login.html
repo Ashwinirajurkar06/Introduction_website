@@ -1,5 +1,6 @@
+<app-header />
 <div class="container">
-	<div class="centerContainer">
+	<div class="centerContainer" style="min-height:auto; margin: 3rem;">
 
 		<form class="formContainer" [formGroup]="loginForm" (ngSubmit)="submitLoginDetails()">
 			<h2 class="formContainerTitle">Login Form</h2>
@@ -66,7 +67,7 @@
 					<div class="spinner-border" role="status">
 						<span class="visually-hidden">Wait...</span>
 					</div>
-					Wait...
+					Please wait
 				</button>
 				} @else{
 				<button type="submit" class="btn btn-primary" style="--bs-btn-padding-x: 1.5rem;">Login</button>
