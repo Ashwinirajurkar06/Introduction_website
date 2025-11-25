@@ -1,8 +1,8 @@
 <div class="container">
 	<div class="centerContainer">
 
-		<form class="formContainer" style="max-width: 850px;" [formGroup]="registerForm" (ngSubmit)="submitRegisterDetails()">
-			<h1 class="text-center mb-4">Registration Form</h1>
+		<form class="formContainer" style="width: 850px;" [formGroup]="registerForm" (ngSubmit)="submitRegisterDetails()">
+			<h2 class="formContainerTitle">Registration Form</h2>
 			<div class="row">
 
 				<!-- First Name -->
@@ -68,8 +68,34 @@
 					</div>
 				</div>
 
-				<!-- Email Address -->
+				<!-- Mobile Number -->
 				<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
+					<div class="input-group" [ngClass]="{'is-invalid': userDetailSubmit() && f['mobile'].errors}">
+						<div class="form-floating">
+							<input type="tel" class="form-control" id="exampleInputmobile1" maxlength="10" minlength="10" formControlName="mobile" [ngClass]="{'is-invalid': userDetailSubmit() && f['mobile'].errors}" [autocomplete]="0" placeholder="Please Enter Mobile Number" aria-describedby="mobileHelp">
+							<label for="exampleInputmobile1" class="form-label">Mobile Number <span class="required">*</span></label>
+						</div>
+						@if (userDetailSubmit() && f['mobile'].errors) {
+						<div class="invalid-feedback">
+							@if (f['mobile'].errors['required']) {
+							<div>Please Enter Mobile No.</div>
+							}
+							@if (f['mobile'].errors['pattern']) {
+							<div>Please Enter Valid Mobile No.</div>
+							}
+							@if (f['mobile'].errors['minlength']) {
+							<div>Please Enter Valid 10 Digit Phone No.</div>
+							}
+							@if (f['mobile'].errors['maxlength']) {
+							<div>Please Enter Valid 10 Digit Mobile No.</div>
+							}
+						</div>
+						}
+					</div>
+				</div>
+
+				<!-- Email Address -->
+				<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-12 col-xxl-12 mb-3">
 					<div class="input-group" [ngClass]="{'is-invalid': userDetailSubmit() && f['email'].errors}">
 						<!-- <div class="input-group-text">+91</div> -->
 						<div class="form-floating">
@@ -99,34 +125,9 @@
 					</div>
 				</div>
 
-				<!-- Mobile Number -->
-				<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
-					<div class="input-group" [ngClass]="{'is-invalid': userDetailSubmit() && f['mobile'].errors}">
-						<div class="form-floating">
-							<input type="tel" class="form-control" id="exampleInputmobile1" maxlength="10" minlength="10" formControlName="mobile" [ngClass]="{'is-invalid': userDetailSubmit() && f['mobile'].errors}" [autocomplete]="0" placeholder="Please Enter Mobile Number" aria-describedby="mobileHelp">
-							<label for="exampleInputmobile1" class="form-label">Mobile Number <span class="required">*</span></label>
-						</div>
-						@if (userDetailSubmit() && f['mobile'].errors) {
-						<div class="invalid-feedback">
-							@if (f['mobile'].errors['required']) {
-							<div>Please Enter Mobile No.</div>
-							}
-							@if (f['mobile'].errors['pattern']) {
-							<div>Please Enter Valid Mobile No.</div>
-							}
-							@if (f['mobile'].errors['minlength']) {
-							<div>Please Enter Valid 10 Digit Phone No.</div>
-							}
-							@if (f['mobile'].errors['maxlength']) {
-							<div>Please Enter Valid 10 Digit Mobile No.</div>
-							}
-						</div>
-						}
-					</div>
-				</div>
+
 
 			</div>
-
 			<div class="row">
 				<!-- Password -->
 				<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
@@ -174,11 +175,42 @@
 				</div>
 
 
-				<div class="mb-3">
-					<button type="submit" class="btn btn-primary">Register</button>
+				<div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mb-3">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="termsCheck" formControlName="terms" [ngClass]="{'is-invalid': userDetailSubmit() && f['terms'].errors}">
+						<label class="form-check-label" for="termsCheck">
+							I agree to the <a href="#" target="_blank">Terms and Conditions</a> <span class="required">*</span>
+						</label>
+
+
+						@if (userDetailSubmit() && f['terms'].errors) {
+						<div class="invalid-feedback">
+							@if (f['terms'].errors['required']) {
+							<div>Please accept the Terms and Conditions</div>
+							}
+						</div>
+						}
+					</div>
+				</div>
+
+				<div class="d-flex justify-content-between align-items-center">
+					@if(formSubmitStatus()){
+					<button type="button" [disabled]="true" class="btn btn-primary" style="--bs-btn-padding-x: 1.5rem;">
+						<div class="spinner-border" role="status">
+							<span class="visually-hidden">Wait...</span>
+						</div>
+						Wait...
+					</button>
+					} @else{
+					<button type="submit" class="btn btn-primary" style="--bs-btn-padding-x: 1.5rem;">Register</button>
+					}
+
+					<div style="font-size: 0.875rem;text-align: right;line-height: normal;">
+						<p class="m-0">Already registered?</p>
+						<p class="m-0"><a class="bs-link" [routerLink]="['/login']">Back to login</a></p>
+					</div>
 				</div>
 			</div>
-			<p style="display: flex;justify-content: flex-start;align-items: center;gap: 0.5rem;">Already registered? <a class="bs-link" [routerLink]="['/login']">Click here to login</a></p>
 		</form>
 	</div>
 </div>
