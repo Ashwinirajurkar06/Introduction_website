@@ -83,19 +83,12 @@ export class Home {
 					this.pageData = response.data || response.user; // Use this data as needed
 					this.homePageDataStatus = true;
 				} else {
-					this.toastr.error(response.message, `${response.status} Error`);
+					this.toastr.error(response.message, `${response.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
+					this.homePageDataStatus = false;
 				}
 			},
 			error: (err: any) => {
-				if (err.error.status === 422) {
-					this.toastr.error(err.error.message, `${err.error.status} Error`);
-					return;
-				} else if (err.error.status === 404) {
-					this.toastr.error(err.error.message, `${err.error.status} Error`);
-				} else {
-					this.toastr.error('Failed to retrieve user information.', 'Error', { closeButton: true, timeOut: 10000, progressBar: true });
-				}
-
+				this.toastr.error(err.error.message, `${err.error.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
 				this.homePageDataStatus = false;
 
 			},

@@ -86,20 +86,16 @@ export class Login {
 					this.toastr.info('Please complete your profile information.', 'Info', { closeButton: true, timeOut: 10000, progressBar: true });
 					this.router.navigate(['/user-info']);
 				} else {
-					this.toastr.error(response.message, `${response.status} Error`);
+
+					this.toastr.error(response.message, `${response.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
 				}
 
 				this.formSubmitStatus.set(false);
 
 			},
 			error: (err: any) => {
+				this.toastr.error(err.error.message, `${err.error.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
 				this.formSubmitStatus.set(false);
-				if (err.error.status === 422 || err.error.status === 404) {
-					this.toastr.error(err.error.message, `${err.error.status} Error`);
-					return;
-				} else {
-					this.toastr.error(err.error.message, `${err.error.status} Error`);
-				}
 			},
 			complete: () => {
 				// console.log("completed");

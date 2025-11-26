@@ -207,22 +207,13 @@ export class UserInfo {
 					sessionStorage.setItem('mandatoryDataFound', 'true');
 					this.router.navigate(['/home']);
 				} else {
-
-					this.toastr.error(response.message, `${response.status} Error`);
-
-					this.toastr.error('Failed to save user information. Please try again.', 'Error', { closeButton: true, timeOut: 5000, progressBar: true });
+					this.toastr.error(response.message, `${response.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
 				}
 
 				this.formSubmitStatus.set(false);
 			},
 			error: (err: any) => {
-				if (err.error.status === 422 || err.error.status === 400) {
-					this.toastr.error(err.error.message, `${err.error.status} Error`);
-					return;
-				} else {
-					this.toastr.error('An unexpected error occurred. Please try again later.', 'Error');
-				}
-
+				this.toastr.error(err.error.message, `${err.error.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
 				this.formSubmitStatus.set(false);
 			},
 			complete: () => {

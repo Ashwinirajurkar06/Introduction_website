@@ -88,12 +88,11 @@ export class Register {
 		this.authService.createUser(data).subscribe({
 			next: (response: any) => {
 
-				// if (response.status == 200 || response.status == 201) {
-				// 	this.toastr.success('User Registered successfully!', 'Success', { closeButton: true, timeOut: 5000, progressBar: true });
-				// } else {
-				// 	this.toastr.error(response.message, `${response.status} Error`);
-				// }
-				this.toastr.error(response.message, `${response.status} Error`);
+				if (response.status == 200 || response.status == 201) {
+					this.toastr.success('User Registered successfully!', 'Success', { closeButton: true, timeOut: 5000, progressBar: true });
+				} else {
+					this.toastr.error(response.message, `${response.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
+				}
 				this.formSubmitStatus.set(false);
 
 			},
@@ -105,7 +104,7 @@ export class Register {
 				// 	this.toastr.error(err.error.message, `${err.error.status} Error`);
 				// }
 				this.formSubmitStatus.set(false);
-				this.toastr.error(err.error.message, `${err.error.status} Error`);
+				this.toastr.error(err.error.message, `${err.error.status} Error`, { closeButton: true, timeOut: 10000, progressBar: true });
 			},
 			complete: () => {
 				// console.log("completed");
