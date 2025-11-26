@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
 	selector: 'app-user-info',
-	imports: [RouterLink, CommonModule, ReactiveFormsModule, AutosizeModule],
+	imports: [CommonModule, ReactiveFormsModule, AutosizeModule],
 	templateUrl: './user-info.html',
 	styleUrl: './user-info.scss',
 })
@@ -130,6 +130,18 @@ export class UserInfo {
 	];
 
 
+	constructor() {
+		this.checkMandatoryDataInSession();
+	}
+
+	checkMandatoryDataInSession(): void {
+		const mandatoryDataFound = sessionStorage.getItem('mandatoryDataFound');
+		if (mandatoryDataFound !== 'true') {
+		} else {
+			this.router.navigate(['/home']);
+		}
+	}
+
 	ngOnInit(): void {
 
 		this.userInfoForm = this.formBuilder.group({
@@ -190,18 +202,22 @@ export class UserInfo {
 
 		this.authService.createUserInfo(data).subscribe({
 			next: (response: any) => {
-				if (response.status == 200) {
+				if (response.status == 200 || response.status == 201) {
 					this.toastr.success('User information saved successfully!', 'Success', { closeButton: true, timeOut: 5000, progressBar: true });
+					sessionStorage.setItem('mandatoryDataFound', 'true');
 					this.router.navigate(['/home']);
 				} else {
+
+					this.toastr.error(response.message, `${response.status} Error`);
+
 					this.toastr.error('Failed to save user information. Please try again.', 'Error', { closeButton: true, timeOut: 5000, progressBar: true });
 				}
 
 				this.formSubmitStatus.set(false);
 			},
 			error: (err: any) => {
-				if (err.error.status === 422 || err.error.status === 500) {
-					this.toastr.error(err.error.message, 'Error');
+				if (err.error.status === 422 || err.error.status === 400) {
+					this.toastr.error(err.error.message, `${err.error.status} Error`);
 					return;
 				} else {
 					this.toastr.error('An unexpected error occurred. Please try again later.', 'Error');

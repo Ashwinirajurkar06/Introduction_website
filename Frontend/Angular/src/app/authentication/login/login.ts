@@ -6,11 +6,11 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { Header } from '../../container/header/header';
+import { PublicHeader } from "../../container/public-header/public-header";
 
 @Component({
 	selector: 'app-login',
-	imports: [RouterLink, CommonModule, ReactiveFormsModule, Header],
+	imports: [RouterLink, CommonModule, ReactiveFormsModule, PublicHeader],
 	templateUrl: './login.html',
 	styleUrl: './login.scss',
 })
@@ -24,7 +24,17 @@ export class Login {
 
 	formSubmitStatus = signal<boolean>(false);
 	passwordShow = signal("password");
-	subscription!: Subscription;
+
+
+	constructor() {
+
+		const tokenAccess = sessionStorage.getItem("tokenAccess");
+		if (tokenAccess) {
+			this.router.navigate(["/home"]);
+		} else {
+			// this.router.navigate(["/login"]);
+		}
+	}
 
 	ngOnInit(): void {
 
@@ -63,8 +73,11 @@ export class Login {
 	loginUser(email: string, password: string) {
 		this.formSubmitStatus.set(true);
 
-		this.subscription = this.authService.authenticate(email, password).subscribe({
+		this.authService.authenticate(email, password).subscribe({
 			next: (response: any) => {
+
+				sessionStorage.setItem('mandatoryDataFound', response.mandatoryDataFound);
+
 				if (response.status == 200 && response.mandatoryDataFound) {
 					if (response.token !== undefined && response.token != '') {
 						this.checkTokenInSession();
@@ -73,7 +86,7 @@ export class Login {
 					this.toastr.info('Please complete your profile information.', 'Info', { closeButton: true, timeOut: 10000, progressBar: true });
 					this.router.navigate(['/user-info']);
 				} else {
-
+					this.toastr.error(response.message, `${response.status} Error`);
 				}
 
 				this.formSubmitStatus.set(false);
@@ -82,10 +95,10 @@ export class Login {
 			error: (err: any) => {
 				this.formSubmitStatus.set(false);
 				if (err.error.status === 422 || err.error.status === 404) {
-					this.toastr.error(err.error.message, 'Error');
+					this.toastr.error(err.error.message, `${err.error.status} Error`);
 					return;
 				} else {
-					this.toastr.error('An unexpected error occurred. Please try again later.', 'Error');
+					this.toastr.error(err.error.message, `${err.error.status} Error`);
 				}
 			},
 			complete: () => {
@@ -101,11 +114,6 @@ export class Login {
 			this.router.navigate(["/home"]);
 		} else {
 			this.router.navigate(["/login"]);
-		}
-	}
-	ngOnDestroy() {
-		if (this.subscription && !this.subscription.closed) {
-			this.subscription.unsubscribe();
 		}
 	}
 

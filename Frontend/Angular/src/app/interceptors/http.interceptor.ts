@@ -21,12 +21,12 @@ export const httpInterceptor: HttpInterceptorFn = (req, next) => {
 		return next(req);
 	}
 
-	// ✅ Case 2: Private API → must be logged in
-	if (!authService.isUserLoggedIn()) {
-		// You could optionally redirect to login
-		authService.logOut();
-		return next(req); // or throwError(() => new Error('Not logged in'));
-	}
+	// // ✅ Case 2: Private API → must be logged in
+	// if (!authService.isUserLoggedIn()) {
+	// 	// You could optionally redirect to login
+	// 	authService.logOut();
+	// 	return next(req); // or throwError(() => new Error('Not logged in'));
+	// }
 
 	// ✅ Case 3: Private API + logged in → attach token
 	const modifiedReq = token

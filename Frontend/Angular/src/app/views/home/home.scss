@@ -1,0 +1,35 @@
+table {
+	tbody {
+		tr {
+
+			td,
+			th {
+				padding: 8px 12px;
+			}
+		}
+	}
+}
+
+.card {
+	margin: 1rem 0 0.5rem 0 !important;
+}
+
+@media only screen and (max-width: 992px) {
+
+	.card {
+		margin: 1rem !important;
+	}
+
+	table {
+		tbody {
+			tr {
+
+				td,
+				th {
+					padding: 8px 12px;
+				}
+			}
+		}
+	}
+
+}

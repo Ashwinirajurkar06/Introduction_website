@@ -1,4 +1,4 @@
-<app-header />
+<app-public-header />
 <div class="container">
 	<div class="centerContainer" style="min-height:auto; margin: 3rem;">
 
@@ -63,7 +63,7 @@
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
 				@if(formSubmitStatus()){
-				<button type="button" [disabled]="true" class="btn btn-primary" style="--bs-btn-padding-x: 1.5rem;">
+				<button type="submit" [disabled]="true" class="btn btn-primary" style="--bs-btn-padding-x: 1.5rem;">
 					<div class="spinner-border" role="status">
 						<span class="visually-hidden">Wait...</span>
 					</div>

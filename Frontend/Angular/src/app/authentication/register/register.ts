@@ -7,11 +7,12 @@ import { Subscription } from 'rxjs';
 import { AuthenticationService } from '../../services/authentication.service';
 import { UserRegister } from '../../utility/interfaces/general';
 import { ToastrService } from 'ngx-toastr';
-import { Header } from "../../container/header/header";
+import { PublicHeader } from "../../container/public-header/public-header";
+import { GenericHttpService } from '../../services/generic-http.service';
 
 @Component({
 	selector: 'app-register',
-	imports: [RouterLink, CommonModule, ReactiveFormsModule, Header],
+	imports: [RouterLink, CommonModule, ReactiveFormsModule, PublicHeader],
 	templateUrl: './register.html',
 	styleUrl: './register.scss',
 })
@@ -21,11 +22,21 @@ export class Register {
 	userDetailSubmit = signal(false);
 	passwordShow = "password";
 	confirmPasswordShow = "password";
-	subscription!: Subscription;
 	formSubmitStatus = signal<boolean>(false);
 	private authService = inject(AuthenticationService);
 	private router = inject(Router);
 	private toastr = inject(ToastrService);
+	private genHttpService = inject(GenericHttpService);
+
+	constructor() {
+
+		const tokenAccess = sessionStorage.getItem("tokenAccess");
+		if (tokenAccess) {
+			this.router.navigate(["/home"]);
+		} else {
+			// this.router.navigate(["/login"]);
+		}
+	}
 
 
 	ngOnInit(): void {
@@ -50,19 +61,18 @@ export class Register {
 	}
 	submitRegisterDetails() {
 		this.userDetailSubmit.set(true);
-		this.registerForm.markAllAsTouched();
 
 		if (this.registerForm.invalid) {
 			return;
 		} else {
 			// Registration logic to be implemented
-			const registerData: UserRegister = {
-				fName: this.f['fName'].value,
-				lName: this.f['lName'].value,
-				dob: this.f['dob'].value,
-				email: this.f['email'].value,
-				mobile: this.f['mobile'].value,
-				password: this.f['password'].value,
+			let registerData: UserRegister = {
+				fName: this.registerForm.get('fName')?.value,
+				lName: this.registerForm.get('lName')?.value,
+				dob: this.registerForm.get('dob')?.value,
+				email: this.registerForm.get('email')?.value,
+				mobile: this.registerForm.get('mobile')?.value,
+				password: this.registerForm.get('password')?.value,
 			};
 			this.registerUser(registerData);
 
@@ -74,36 +84,32 @@ export class Register {
 	registerUser(data: UserRegister) {
 		this.formSubmitStatus.set(true);
 
+
 		this.authService.createUser(data).subscribe({
 			next: (response: any) => {
-				if (response.status == 200) {
-					this.toastr.success('User Registered successfully!', 'Success', { closeButton: true, timeOut: 5000, progressBar: true });
-					this.router.navigate(['/login']);
-				} else {
-					this.toastr.error('Failed to register user. Please try again.', 'Error', { closeButton: true, timeOut: 5000, progressBar: true });
-				}
 
+				// if (response.status == 200 || response.status == 201) {
+				// 	this.toastr.success('User Registered successfully!', 'Success', { closeButton: true, timeOut: 5000, progressBar: true });
+				// } else {
+				// 	this.toastr.error(response.message, `${response.status} Error`);
+				// }
+				this.toastr.error(response.message, `${response.status} Error`);
 				this.formSubmitStatus.set(false);
+
 			},
 			error: (err: any) => {
-				if (err.error.status === 422 || err.error.status === 500) {
-					this.toastr.error(err.error.message, 'Error');
-					return;
-				} else {
-					this.toastr.error('An unexpected error occurred. Please try again later.', 'Error');
-				}
-
+				// if (err.error.status === 422 || err.error.status === 404) {
+				// 	this.toastr.error(err.error.message, `${err.error.status} Error`);
+				// 	return;
+				// } else {
+				// 	this.toastr.error(err.error.message, `${err.error.status} Error`);
+				// }
 				this.formSubmitStatus.set(false);
+				this.toastr.error(err.error.message, `${err.error.status} Error`);
 			},
 			complete: () => {
 				// console.log("completed");
 			},
 		});
-	}
-
-	ngOnDestroy() {
-		if (this.subscription && !this.subscription.closed) {
-			this.subscription.unsubscribe();
-		}
 	}
 }

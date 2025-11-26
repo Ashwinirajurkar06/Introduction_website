@@ -30,6 +30,14 @@ body {
 		min-height: 100vh;
 	}
 
+	.right {
+		display: flex;
+		gap: 1rem;
+		justify-content: center;
+		align-items: center;
+
+	}
+
 	.formContainer {
 		// background-color: #ffffff;
 		border-radius: var(--bs-border-radius-xl) !important;
