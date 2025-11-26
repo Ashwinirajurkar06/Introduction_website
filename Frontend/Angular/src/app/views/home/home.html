@@ -1,7 +1,9 @@
+<!-- <pre>{{pageData() | json}}</pre> -->
+
 @if(homePageDataStatus){
 
 <div class="container">
-	<h2>Welcome, {{pageData.f_Name}}!</h2>
+	<h2>Welcome, {{pageData().f_Name}}!</h2>
 	<div class="row">
 		<div class="col-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
 			<div class="card rounded-3 shadow w-auto">
@@ -18,7 +20,7 @@
 									</div>
 								</th>
 
-								<td>{{pageData.f_Name}} {{pageData.l_Name}}</td>
+								<td>{{pageData().f_Name}} {{pageData().l_Name}}</td>
 							</tr>
 							<tr>
 								<th>
@@ -28,7 +30,7 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.dob | date}}
+									{{pageData().dob | date}}
 								</td>
 							</tr>
 							<tr>
@@ -39,7 +41,7 @@
 									</div>
 								</th>
 								<td>
-									<a [href]="'mailto:' + pageData.email">{{pageData.email}}</a>
+									<a [href]="'mailto:' + pageData().email">{{pageData().email}}</a>
 								</td>
 							</tr>
 							<tr>
@@ -51,7 +53,7 @@
 								</th>
 
 								<td>
-									<a [href]="'tel:' + pageData.mobile">{{pageData.mobile}}</a>
+									<a [href]="'tel:' + pageData().mobile">{{pageData().mobile}}</a>
 								</td>
 							</tr>
 
@@ -76,7 +78,7 @@
 										Qualification:
 									</div>
 								</th>
-								<td>{{pageData.qualification}}</td>
+								<td>{{pageData().qualification}}</td>
 							</tr>
 							<tr>
 								<th>
@@ -86,7 +88,7 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.role}}
+									{{pageData().role}}
 								</td>
 							</tr>
 
@@ -99,7 +101,7 @@
 									</div>
 								</th>
 								<td>
-									<div>{{pageData.experience}} - years</div>
+									<div>{{pageData().experience}} - years</div>
 								</td>
 							</tr>
 							<tr>
@@ -110,7 +112,7 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.skills}}
+									{{pageData().skills}}
 								</td>
 							</tr>
 
@@ -135,24 +137,24 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.street}}
+									{{pageData().street}}
 								</td>
 							</tr>
 							<tr>
 								<th>City:</th>
-								<td>{{pageData.city}}</td>
+								<td>{{pageData().city}}</td>
 							</tr>
 							<tr>
 								<th>State:</th>
-								<td>{{pageData.state}}</td>
+								<td>{{pageData().state}}</td>
 							</tr>
 							<tr>
 								<th>Country:</th>
-								<td>{{pageData.country}}</td>
+								<td>{{pageData().country}}</td>
 							</tr>
 							<tr>
 								<th>Pincode:</th>
-								<td>{{pageData.pincode}}</td>
+								<td>{{pageData().pincode}}</td>
 							</tr>
 
 						</tbody>
@@ -173,7 +175,7 @@
 
 
 <div class="container d-none">
-	<h2>Welcome, {{pageData.f_Name}}!</h2>
+	<h2>Welcome, {{pageData().f_Name}}!</h2>
 	<div class="row">
 		<div class="col-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6">
 			<div class="card rounded-3 shadow w-auto">
@@ -190,7 +192,7 @@
 									</div>
 								</th>
 
-								<td>{{pageData.f_Name}} {{pageData.l_Name}}</td>
+								<td>{{pageData().f_Name}} {{pageData().l_Name}}</td>
 							</tr>
 							<tr>
 								<th>
@@ -200,7 +202,7 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.dob | date}}
+									{{pageData().dob | date}}
 								</td>
 							</tr>
 							<tr>
@@ -211,7 +213,7 @@
 									</div>
 								</th>
 								<td>
-									<a [href]="'mailto:' + pageData.email">{{pageData.email}}</a>
+									<a [href]="'mailto:' + pageData().email">{{pageData().email}}</a>
 								</td>
 							</tr>
 							<tr>
@@ -223,7 +225,7 @@
 								</th>
 
 								<td>
-									<a [href]="'tel:' + pageData.mobile">{{pageData.mobile}}</a>
+									<a [href]="'tel:' + pageData().mobile">{{pageData().mobile}}</a>
 								</td>
 							</tr>
 
@@ -248,7 +250,7 @@
 										Qualification:
 									</div>
 								</th>
-								<td>{{pageData.qualification}}</td>
+								<td>{{pageData().qualification}}</td>
 							</tr>
 							<tr>
 								<th>
@@ -258,7 +260,7 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.role}}
+									{{pageData().role}}
 								</td>
 							</tr>
 
@@ -271,7 +273,7 @@
 									</div>
 								</th>
 								<td>
-									<div>{{pageData.experience}} - years</div>
+									<div>{{pageData().experience}} - years</div>
 								</td>
 							</tr>
 							<tr>
@@ -282,7 +284,7 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.skills}}
+									{{pageData().skills}}
 								</td>
 							</tr>
 
@@ -307,24 +309,24 @@
 									</div>
 								</th>
 								<td>
-									{{pageData.street}}
+									{{pageData().street}}
 								</td>
 							</tr>
 							<tr>
 								<th>City:</th>
-								<td>{{pageData.city}}</td>
+								<td>{{pageData().city}}</td>
 							</tr>
 							<tr>
 								<th>State:</th>
-								<td>{{pageData.state}}</td>
+								<td>{{pageData().state}}</td>
 							</tr>
 							<tr>
 								<th>Country:</th>
-								<td>{{pageData.country}}</td>
+								<td>{{pageData().country}}</td>
 							</tr>
 							<tr>
 								<th>Pincode:</th>
-								<td>{{pageData.pincode}}</td>
+								<td>{{pageData().pincode}}</td>
 							</tr>
 
 						</tbody>
@@ -340,9 +342,9 @@
 }
 
 
-<!-- Name: {{pageData.f_Name}} {{pageData.l_Name}}<br>
-		Date of Birth: {{pageData.dob}}<br>
-		Email: {{pageData.email}}<br>
+<!-- Name: {{pageData().f_Name}} {{pageData().l_Name}}<br>
+		Date of Birth: {{pageData().dob}}<br>
+		Email: {{pageData().email}}<br>
 		Mobile: {{pageData.mobile}}<br>
 		Qualification: {{pageData.qualification}}<br>
 		Role: {{pageData.role}}<br>

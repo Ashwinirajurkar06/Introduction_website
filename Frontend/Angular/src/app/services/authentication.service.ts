@@ -18,7 +18,7 @@ export class AuthenticationService {
 	baseUrl = environment.baseUrl;
 	loginUrl = `${environment.baseUrl}/auth/login`;
 	registerUrl = `${environment.baseUrl}/auth/register`;
-	userInfoUrl = `${environment.baseUrl}/auth/user-info`;
+	userInfoUrl = `${environment.baseUrl}/user-info`;
 
 	handleError(error: HttpErrorResponse) {
 		let errorMessage = {

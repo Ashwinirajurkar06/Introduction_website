@@ -12,7 +12,7 @@ import { UserRegister } from '../utility/interfaces/general';
 export class GenericHttpService {
 	toastr = inject(ToastrService);
 	baseUrl: string = environment.baseUrl;
-	userInfoUrl = `${environment.baseUrl}/auth/user-info`;
+	userInfoUrl = `${environment.baseUrl}/user-info`;
 	private http = inject(HttpClient);
 	private authService = inject(AuthenticationService);
 
